@@ -1,0 +1,33 @@
+{% extends 'todo/base.html' %}
+{% block maincontents %}
+<h1>Todo List</h1>
+<form action="{% url 'create' %}" method="POST">
+  {{ form.body }}
+  <!-- <input type="text"> -->
+  <input type="submit" value="追加">
+  {% csrf_token %}
+</form>
+<h2>Current Todos</h2>
+<table>
+  <thead>
+    <th>Todos</th><th>&nbsp;</th>
+  </thead>
+  <tbody>
+    {% for post in posts %}
+    <tr>
+      <td>
+        <div>
+          {{ post.body }}
+        </div>
+      </td>
+      <td>
+        <form action="{% url 'delete' post.id %}">
+          {% csrf_token %}
+          <button>Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock%}
